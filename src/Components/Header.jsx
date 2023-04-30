@@ -32,32 +32,41 @@ const Header = () => {
           <Container>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
-              <Nav className="mx-auto">
-                <Nav.Link>
-                  <Link to="/">Home</Link>
-                </Nav.Link>
-                <Nav.Link>
-                  <Link to="/about">About</Link>
-                </Nav.Link>
-                <Nav.Link>
-                  <Link to="/career">Career</Link>
-                </Nav.Link>
+              <Nav className="mx-auto d-flex gap-3">
+                <Link
+                  className="text-black text-decoration-none text-muted"
+                  to="/"
+                >
+                  Home
+                </Link>
+                <Link
+                  className="text-black text-decoration-none text-muted"
+                  to="/about"
+                >
+                  About
+                </Link>
+                <Link
+                  className="text-black text-decoration-none text-muted"
+                  to="/career"
+                >
+                  Career
+                </Link>
+                <Link
+                  className="text-black text-decoration-none text-muted"
+                  to="/register"
+                >
+                  Registration
+                </Link>
               </Nav>
               <Nav>
-                {user && (
-                  <Nav.Link>
-                    <FaUserCircle style={{ fontSize: "2.5rem" }} />
-                  </Nav.Link>
+                {user && <FaUserCircle style={{ fontSize: "2.5rem" }} />}
+                {user ? (
+                  <Button variant="danger">Logout</Button>
+                ) : (
+                  <Link to="/login">
+                    <Button variant="danger">Login</Button>
+                  </Link>
                 )}
-                <Nav.Link eventKey={2} href="#memes">
-                  {user ? (
-                    <Button variant="danger">Logout</Button>
-                  ) : (
-                    <Link to="/login">
-                      <Button variant="danger">Login</Button>
-                    </Link>
-                  )}
-                </Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>

@@ -5,6 +5,8 @@ import NewsLayout from "../Components/NewsLayout";
 import News from "../Pages/News/News";
 import About from "../Components/About";
 import Career from "../Components/Career";
+import Registration from "../Components/Registration";
+import Login from "../Components/Login";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +31,14 @@ const router = createBrowserRouter([
       {
         path: "/career",
         element: <Career />,
+      },
+      {
+        path: "/register",
+        element: <Registration />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
       },
     ],
   },

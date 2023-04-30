@@ -3,24 +3,35 @@ import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
-const Login = () => {
+const Registration = () => {
   const [showPass, setShowPass] = useState(true);
-  const { signIn } = useContext(AuthContext);
+  const { createUser } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const handleLogin = (event) => {
+  const handleRegister = (event) => {
     event.preventDefault();
     setError("");
     setSuccess("");
     const form = event.target;
+    const name = form.name.value;
+    const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
-    signIn(email, password)
+    if (!/(?=.*[A-Z])/.test(password)) {
+      setError("at least one uppercase");
+      return;
+    } else if (!/(?=.*[!#$%&? "])/.test(password)) {
+      setError("at least special key");
+      return;
+    } else if (password.length < 8) {
+      setError("please input 8 or more letter");
+      return;
+    }
+    createUser(email, password)
       .then((result) => {
-        const loggedUser = result.user;
-        console.log(loggedUser);
-        setSuccess("Login Successful!");
+        const createdUser = result.user;
+        console.log(createdUser);
+        setSuccess("Successfully registration!");
       })
       .catch((error) => {
         setError(error.message);
@@ -28,8 +39,26 @@ const Login = () => {
   };
   return (
     <div>
-      <h3>Please Login</h3>
-      <Form onSubmit={handleLogin}>
+      <h3>Please Registration</h3>
+      <Form onSubmit={handleRegister}>
+        <Form.Group className="mb-3" controlId="formBasicName">
+          <Form.Label>Your Name</Form.Label>
+          <Form.Control
+            type="text"
+            name="name"
+            placeholder="Enter Name"
+            required
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicPhoto">
+          <Form.Label>Your Photo URL</Form.Label>
+          <Form.Control
+            type="text"
+            name="photo"
+            placeholder="Enter Photo URL"
+            required
+          />
+        </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -52,19 +81,26 @@ const Login = () => {
             required
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+        <Form.Group className="mb-3" controlId="formBasicCheckboxPass">
           <Form.Check
             onClick={() => setShowPass(!showPass)}
             type="checkbox"
             label="Show Password"
           />
         </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+          <Form.Check
+            type="checkbox"
+            name="accept"
+            label="Accept Terms and Conditions"
+          />
+        </Form.Group>
         <Button variant="danger" type="submit">
-          Login
+          Register
         </Button>
         <br />
-        <Form.Text className="text-muted mt-5">
-          Don’t Have An Account ? <Link to="/register">Register</Link>
+        <Form.Text className="text-muted">
+          Already Have An Account ? <Link to="/login">Login</Link>
         </Form.Text>
         <br />
         <Form.Text className="text-danger">{error}</Form.Text>
@@ -74,4 +110,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Registration;

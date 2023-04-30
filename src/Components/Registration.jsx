@@ -8,6 +8,7 @@ const Registration = () => {
   const { createUser } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [accept, setAccept] = useState(false);
   const handleRegister = (event) => {
     event.preventDefault();
     setError("");
@@ -37,6 +38,11 @@ const Registration = () => {
         setError(error.message);
       });
   };
+
+  const handleTerms = (event) => {
+    setAccept(event.target.checked);
+  };
+
   return (
     <div>
       <h3>Please Registration</h3>
@@ -90,12 +96,17 @@ const Registration = () => {
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
           <Form.Check
+            onClick={handleTerms}
             type="checkbox"
             name="accept"
-            label="Accept Terms and Conditions"
+            label={
+              <>
+                Accept <Link to="/terms">Terms and Conditions</Link>
+              </>
+            }
           />
         </Form.Group>
-        <Button variant="danger" type="submit">
+        <Button disabled={!accept} variant="danger" type="submit">
           Register
         </Button>
         <br />

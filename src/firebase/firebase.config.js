@@ -4,13 +4,14 @@ import { initializeApp } from "firebase/app";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+console.log("enviironment variable", import.meta.env.VITE_PASS);
 const firebaseConfig = {
-  apiKey: "AIzaSyCijC_t-iEwbEt9T6Jynvl7pHjEu0UJi0Q",
-  authDomain: "the-orange-news.firebaseapp.com",
-  projectId: "the-orange-news",
-  storageBucket: "the-orange-news.appspot.com",
-  messagingSenderId: "200787204952",
-  appId: "1:200787204952:web:fef694e904ea70e20d232d",
+  apiKey: import.meta.env.VITE_apikey,
+  authDomain: import.meta.env.VITE_authDomain,
+  projectId: import.meta.env.VITE_projectId,
+  storageBucket: import.meta.env.VITE_storageBucket,
+  messagingSenderId: import.meta.env.VITE_messagingSenderId,
+  appId: import.meta.env.VITE_appId,
 };
 
 // Initialize Firebase

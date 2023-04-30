@@ -10,9 +10,9 @@ const firebaseConfig = {
   projectId: "the-orange-news",
   storageBucket: "the-orange-news.appspot.com",
   messagingSenderId: "200787204952",
-  appId: "1:200787204952:web:fef694e904ea70e20d232d"
+  appId: "1:200787204952:web:fef694e904ea70e20d232d",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export app;
+export default app;

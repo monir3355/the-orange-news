@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import logo from "../assets/logo.png";
 import moment from "moment";
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../AuthProvider/AuthProvider";
+import { FaUserCircle } from "react-icons/fa";
 
 const Header = () => {
+  const { user } = useContext(AuthContext);
   return (
     <header className="py-5">
       <div className="text-center">
-        <img className="w-25" src={logo} alt="" />
+        <img className="w-50" src={logo} alt="" />
         <p className="pt-3">Journalism Without Fear or Favour</p>
         <h6>{moment().format("dddd, MMMM D, YYYY")}</h6>
       </div>
@@ -29,14 +33,30 @@ const Header = () => {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="mx-auto">
-                <Nav.Link href="#features">Home</Nav.Link>
-                <Nav.Link href="#pricing">About</Nav.Link>
-                <Nav.Link href="#pricing">Career</Nav.Link>
+                <Nav.Link>
+                  <Link to="/">Home</Link>
+                </Nav.Link>
+                <Nav.Link>
+                  <Link to="/about">About</Link>
+                </Nav.Link>
+                <Nav.Link>
+                  <Link to="/career">Career</Link>
+                </Nav.Link>
               </Nav>
               <Nav>
-                <Nav.Link href="#deets">Profile</Nav.Link>
+                {user && (
+                  <Nav.Link>
+                    <FaUserCircle style={{ fontSize: "2.5rem" }} />
+                  </Nav.Link>
+                )}
                 <Nav.Link eventKey={2} href="#memes">
-                  <Button variant="danger">Login</Button>
+                  {user ? (
+                    <Button variant="danger">Logout</Button>
+                  ) : (
+                    <Link to="/login">
+                      <Button variant="danger">Login</Button>
+                    </Link>
+                  )}
                 </Nav.Link>
               </Nav>
             </Navbar.Collapse>

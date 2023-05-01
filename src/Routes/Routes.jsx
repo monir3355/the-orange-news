@@ -18,13 +18,16 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Category />,
-        loader: () => fetch(`http://localhost:5000/news/`),
+        loader: () =>
+          fetch(`https://the-orange-news-server-monir3355.vercel.app/news/`),
       },
       {
         path: "category/:id",
         element: <Category />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/categories/${params.id}`),
+          fetch(
+            `https://the-orange-news-server-monir3355.vercel.app/categories/${params.id}`
+          ),
       },
       {
         path: "/about",
@@ -60,7 +63,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/news/${params.id}`),
+          fetch(
+            `https://the-orange-news-server-monir3355.vercel.app/news/${params.id}`
+          ),
       },
     ],
   },

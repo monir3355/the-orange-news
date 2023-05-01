@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, ListGroup } from "react-bootstrap";
 import {
   FaGoogle,
@@ -11,17 +11,56 @@ import "./RightNav.css";
 import qzone1 from "./../assets/qZone1.png";
 import qzone2 from "./../assets/qZone2.png";
 import qzone3 from "./../assets/qZone3.png";
-3;
+import {
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  getAuth,
+  signInWithPopup,
+} from "firebase/auth";
+import app from "../firebase/firebase.config";
+import { Link } from "react-router-dom";
+
+const auth = getAuth(app);
 const RightNav = () => {
+  const googleProvider = new GoogleAuthProvider();
+  const githubProvider = new GithubAuthProvider();
+  const handleGoogle = () => {
+    signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const handleGithub = () => {
+    signInWithPopup(auth, githubProvider)
+      .then((result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div>
       <div>
         <h4>Login With</h4>
-        <Button className="mb-2 w-75" variant="outline-danger">
+        <Button
+          onClick={handleGoogle}
+          className="mb-2 w-75"
+          variant="outline-danger"
+        >
           {" "}
           <FaGoogle /> Login with google
         </Button>
-        <Button className="w-75" variant="outline-danger">
+        <Button
+          onClick={handleGithub}
+          className="w-75"
+          variant="outline-danger"
+        >
           <FaGithub /> Login with github
         </Button>
       </div>
@@ -29,13 +68,28 @@ const RightNav = () => {
         <h4>Find Us On</h4>
         <ListGroup>
           <ListGroup.Item className="cursor-pointer">
-            <FaFacebook /> Facebook
+            <Link
+              className="text-decoration-none"
+              to="https://www.facebook.com/monirul80/"
+            >
+              <FaFacebook /> Facebook
+            </Link>
           </ListGroup.Item>
           <ListGroup.Item className="cursor-pointer">
-            <FaTwitter /> Twitter
+            <Link
+              className="text-decoration-none"
+              to="https://twitter.com/Dev1Monirul"
+            >
+              <FaTwitter /> Twitter
+            </Link>
           </ListGroup.Item>
           <ListGroup.Item className="cursor-pointer">
-            <FaInstagram /> Instragram
+            <Link
+              className="text-decoration-none"
+              to="https://www.instagram.com/"
+            >
+              <FaInstagram /> Instragram
+            </Link>
           </ListGroup.Item>
         </ListGroup>
       </div>

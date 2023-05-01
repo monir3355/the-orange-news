@@ -5,7 +5,7 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Registration = () => {
   const [showPass, setShowPass] = useState(true);
-  const { createUser } = useContext(AuthContext);
+  const { createUser, UpdateUser } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [accept, setAccept] = useState(false);
@@ -33,6 +33,14 @@ const Registration = () => {
         const createdUser = result.user;
         console.log(createdUser);
         setSuccess("Successfully registration!");
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+
+    UpdateUser(name, photo)
+      .then(() => {
+        console.log("Profile Updated");
       })
       .catch((error) => {
         setError(error.message);
